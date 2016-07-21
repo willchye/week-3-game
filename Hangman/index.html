@@ -1,0 +1,101 @@
+<DOCTYPE! html>
+<!-- <html lang="en"> -->
+<head>
+	<!-- <meta charset="UTF-8"> -->
+	<title>Hangman</title>
+		<link type="style/css" rel="stylesheet"  href="hangman.css"/>
+</head>
+
+<body>
+
+<section>
+	<h1>Hangman</h1>
+<div id=main>
+<p>Press any key to get started</p>
+<p>Wins: <span id="win"></span></p>
+<p>Current word:  <span id="letter"></span></p>
+<p>number of remaining guesses:<span id="guessleft"></span></p>
+<p>number already guessed <span id="guessed"></span></p>
+</div>
+</section>
+
+<script>
+
+//when user hits a key onkeyup, converts from computer keycode back to letter
+//	document.onkeyup = function(event)
+//then the function start to run
+document.onkeyup = function(event){
+var key= String.fromCharCode(event.keyCode).toLowerCase();
+
+//variables to fetch html ID/class for inserting new data later
+	var windiv = document.getElementById("win");
+	var letterdiv = document.getElementById("letter");
+	var guessleftdiv = document.getElementById("guessleft");
+	var guessediv = document.getElementById("guessed");
+
+//magicword variable initalized
+//instead of breaking down one word into individual letters as indexes, can just leave word in a String
+//math.random will select a word from the index based on random index number
+	var magicword = ["cat", "dog", "fish"]
+	var computerword = magicword[Math.floor(Math.random()*2)];
+
+//inialize winCount as 0 and guess left as 3 starting remaining
+	var winCount = 0;
+	var guessleftCount = 3;
+
+//inialize dashes
+	var dashes="---";
+
+//storekey creates a span, storekey inserts dashes value into that span, appendchild that value under guess id, so it stores every value instead of last one
+var storekey = document.createElement("span");
+storekey.innerHTML=dashes;
+letterdiv.appendChild(storekey);
+// same thing for key, so when user types a letter it will be auto displayed to guessdiv - guessed html ID span
+var storekey = document.createElement("span");
+storekey.innerHTML=key;
+guessediv.appendChild(storekey);
+
+
+//the function here converts/replaces word within a string based by the initiate string, the index and the replacing letter
+function setCharAt(str,index,chr) {
+      if(index > str.length-1) return str;
+  return str.substr(0,index) + chr + str.substr(index+1);
+   }
+
+//for loop that will run through the chosen word, set test to the charat index inside that string word
+//if user input same letter as the test letter it will use the function setCharAt to the existing dashes
+	for (i=0; i<magicword.length; i++){
+		var test = magicword.charAt(i);
+		if (key==test.toLowerCase()){
+										 dashes=setCharAt(dashes,i,test);
+
+								 }
+		if (key!=test.toLowerCase()){
+			dashes=dashes;
+			guessleftCount--;
+			guessleftdiv.innerHTML=guessLeftCount;
+
+		//if(guessLeftCount=0;){
+
+		//}
+		}
+			}
+
+
+
+
+}
+
+//storekey creates a span, storekey inserts key value into that span, appendchild that value under guess id, so it stores every value instead of last one
+
+
+//if key value is same as computer random number then add winCount and insert that count to windiv
+
+
+
+
+//}
+</script>
+
+</body>
+</html>
