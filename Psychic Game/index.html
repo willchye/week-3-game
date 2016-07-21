@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>The Psychic Game</title>
+</head>
+<body>
+<h1>The Psychic Game</h1>
+<p>Guess what letter I am thinking of </p>
+<p>Wins: <span id="win"></span></p>
+<p>Lose: <span id="lose"></span></p>
+<p>Guesses Left:<span id="left"></span></p>
+<p>Your guess so far:  <span id="guess"></span></p>
+
+<script>
+//variables here for the win/lose/guess counts, set a starting number
+	var winCount = 0;
+	var loseCount = 0;
+	var guessLeftCount = 9;
+//when user hits a key onkeyup, converts from computer keycode back to letter
+	document.onkeyup = function(event){
+	var key= String.fromCharCode(event.keyCode).toLowerCase();
+//variables to fetch html class for inserting new data
+	var targetdiv = document.getElementById("guess");
+	var windiv = document.getElementById("win");
+	var losediv = document.getElementById("lose");
+	var guessLeft = document.getElementById("left");
+
+//an alphabet array with a-z indexes, then create random number of the index
+	var randomletter = ["a","b","c","d","f","g","h","i","j","k","l","m","n","o","p","q","r","s","u","v","w","x","y","z"];
+	var computernumber = randomletter[Math.floor(Math.random()*26)]
+
+//storekey creates a span, storekey inserts key value into that span, appendchild that value under guess id, so it stores every value instead of last one
+	var storekey = document.createElement("span");
+	storekey.innerHTML=key;
+	targetdiv.appendChild(storekey);
+
+//if key value is same as computer random number then add winCount and insert that count to windiv
+
+	if(key==computernumber){
+
+		winCount++;
+		windiv.innerHTML=winCount;
+	}
+//else output the guess leftcount starts at 9 down to 8
+	if(key!=computernumber){
+			guessLeftCount--;
+			guessLeft.innerHTML=guessLeftCount;
+
+		}
+	if(guessLeftCount==0){
+
+			loseCount++;
+			losediv.innerHTML=loseCount;
+
+		}
+}
+
+
+
+//}
+</script>
+
+</body>
+</html>
