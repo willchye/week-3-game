@@ -3,7 +3,7 @@
 <head>
 	<!-- <meta charset="UTF-8"> -->
 	<title>Hangman</title>
-		<link type="style/css" rel="stylesheet"  href="hangman.css"/>
+		<link type="style/css" rel="stylesheet"  href="assets/css/hangman.css"/>
 </head>
 
 <body>
@@ -21,65 +21,62 @@
 
 <script>
 
-//when user hits a key onkeyup, converts from computer keycode back to letter
-//	document.onkeyup = function(event)
-//then the function start to run
-document.onkeyup = function(event){
-var key= String.fromCharCode(event.keyCode).toLowerCase();
-
 //variables to fetch html ID/class for inserting new data later
 	var windiv = document.getElementById("win");
 	var letterdiv = document.getElementById("letter");
 	var guessleftdiv = document.getElementById("guessleft");
 	var guessediv = document.getElementById("guessed");
 
-//magicword variable initalized
-//instead of breaking down one word into individual letters as indexes, can just leave word in a String
-//math.random will select a word from the index based on random index number
-	var magicword = ["cat", "dog", "fish"]
-	var computerword = magicword[Math.floor(Math.random()*2)];
+	//magicword variable initalized
+	//instead of breaking down one word into individual letters as indexes, can just leave word in a String
+	//math.random will select a word from the index based on random index number
+		var magicword = ["cat", "dog", "fish"]
+		var computerword = magicword[Math.floor(Math.random()*2)];
 
-//inialize winCount as 0 and guess left as 3 starting remaining
-	var winCount = 0;
-	var guessleftCount = 3;
+		//inialize winCount as 0 and guess left as 3 starting remaining
+			var winCount = 0;
+			var guessleftCount = 3;
 
-//inialize dashes
-	var dashes="---";
+			//inialize dashes
+				var dashes ="---";
+
+//when user hits a key onkeyup, converts from computer keycode back to letter
+//	document.onkeyup = function(event)
+//then the function start to run
+document.onkeyup = function(event){
+	console.log(dashes)
+var key = String.fromCharCode(event.which).toLowerCase();
+
+
 
 //storekey creates a span, storekey inserts dashes value into that span, appendchild that value under guess id, so it stores every value instead of last one
-var storekey = document.createElement("span");
-storekey.innerHTML=dashes;
-letterdiv.appendChild(storekey);
+// var storekey = document.createElement("span");
+// storekey.innerHTML=dashes;
+// letterdiv.appendChild(storekey);
 // same thing for key, so when user types a letter it will be auto displayed to guessdiv - guessed html ID span
 var storekey = document.createElement("span");
 storekey.innerHTML=key;
 guessediv.appendChild(storekey);
-
-
 //the function here converts/replaces word within a string based by the initiate string, the index and the replacing letter
-function setCharAt(str,index,chr) {
-      if(index > str.length-1) return str;
-  return str.substr(0,index) + chr + str.substr(index+1);
-   }
-
 //for loop that will run through the chosen word, set test to the charat index inside that string word
 //if user input same letter as the test letter it will use the function setCharAt to the existing dashes
-	for (i=0; i<magicword.length; i++){
-		var test = magicword.charAt(i);
-		if (key==test.toLowerCase()){
-										 dashes=setCharAt(dashes,i,test);
-
+	// for (i=0; i<computerword.length; i++){
+		// var test = computerword.charAt(i)
+		if (computerword.indexOf(key) != -1){
+			dashes = dashes.substr(0,computerword.indexOf(key)) + key + dashes.substr(computerword.indexOf(key)+1)
+			document.getElementById('letter').innerHTML = dashes
 								 }
-		if (key!=test.toLowerCase()){
-			dashes=dashes;
+		else {
+			document.getElementById('letter').innerHTML = dashes
 			guessleftCount--;
-			guessleftdiv.innerHTML=guessLeftCount;
+			guessleftdiv.innerHTML=guessleftCount;
 
-		//if(guessLeftCount=0;){
+		if(guessLeftCount==0){
+			// start over
 
-		//}
 		}
-			}
+		}
+			// }
 
 
 
